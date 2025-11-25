@@ -122,7 +122,7 @@ Source: [Unique Registry of Victims - datos.gov.co](https://www.datos.gov.co/Inc
 
 ## Author
 
-Fabian Luna - Universidad Nacional de Colombia
+Fabian Luna - Universidad Nacional de Colombia Sede Medellín
 
 ## License
 
