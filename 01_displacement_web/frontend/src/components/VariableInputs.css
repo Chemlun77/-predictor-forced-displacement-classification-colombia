@@ -1,0 +1,36 @@
+.variable-inputs {
+  margin: 20px 0;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #2C3E50;
+  margin: 20px 0 10px 0;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #3498DB;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #BDC3C7;
+  border-radius: 4px;
+  background-color: white;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #3498DB;
+}
+
+.input.readonly {
+  background-color: #ECF0F1;
+  cursor: not-allowed;
+  color: #7F8C8D;
+}

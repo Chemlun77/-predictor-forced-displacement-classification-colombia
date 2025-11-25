@@ -1,0 +1,103 @@
+ESTRUCTURA DE ARCHIVOS DEL PROYECTO
+====================================
+
+Copia los archivos generados siguiendo esta estructura:
+
+proyecto-colombia-displacement/
+│
+├── README.md                                    [✓ Generado]
+│
+├── backend/
+│   ├── app.py                                   [✓ Generado]
+│   ├── requirements.txt                         [✓ Generado]
+│   │
+│   ├── preprocessing/
+│   │   ├── __init__.py                         [✓ Generado]
+│   │   ├── category_mappings.py                [✓ Generado]
+│   │   ├── data_cleaner.py                     [✓ Generado]
+│   │   └── geo_data.py                         [✓ Generado]
+│   │
+│   ├── api/
+│   │   ├── __init__.py                         [✓ Generado]
+│   │   └── socrata_client.py                   [✓ Generado]
+│   │
+│   └── prediction/
+│       ├── __init__.py                         [✓ Generado]
+│       └── predictor.py                        [✓ Generado]
+│
+├── frontend/
+│   ├── package.json                            [✓ Generado]
+│   │
+│   ├── public/
+│   │   └── index.html                          [✓ Generado]
+│   │
+│   └── src/
+│       ├── App.jsx                             [✓ Generado]
+│       ├── App.css                             [✓ Generado]
+│       ├── index.js                            [✓ Generado]
+│       │
+│       ├── components/
+│       │   ├── ControlPanel.jsx                [✓ Generado]
+│       │   ├── ControlPanel.css                [✓ Generado]
+│       │   ├── MapView.jsx                     [✓ Generado]
+│       │   ├── MapView.css                     [✓ Generado]
+│       │   ├── ModelSelector.jsx               [✓ Generado]
+│       │   ├── ModelSelector.css               [✓ Generado]
+│       │   ├── VariableInputs.jsx              [✓ Generado]
+│       │   ├── VariableInputs.css              [✓ Generado]
+│       │   ├── PredictionResult.jsx            [✓ Generado]
+│       │   └── PredictionResult.css            [✓ Generado]
+│       │
+│       ├── services/
+│       │   └── apiService.js                   [✓ Generado]
+│       │
+│       └── utils/
+│           └── constants.js                    [✓ Generado]
+│
+└── db/                                          [⚠ DEBES COPIAR TUS MODELOS AQUÍ]
+    ├── 02a_classical_models/
+    │   └── saved_models/
+    │       ├── Logistic_Regression_best_model.pkl
+    │       ├── Random_Forest_best_model.pkl
+    │       ├── XGBoost_best_model.pkl
+    │       ├── categorical_encoders.pkl
+    │       └── numeric_scalers.pkl
+    │
+    └── 02b_neural_networks/
+        └── saved_models/
+            ├── ResNet_Style_best_model.keras
+            ├── Deep_best_model.keras
+            ├── categorical_encoders.pkl
+            ├── embedding_info.pkl
+            └── numeric_scalers.pkl
+
+
+PASOS SIGUIENTES:
+=================
+
+1. Copia todos los archivos generados a tu proyecto local
+
+2. Copia tus modelos entrenados a la carpeta db/ según estructura
+
+3. Instala dependencias:
+   cd backend && pip install -r requirements.txt
+   cd frontend && npm install
+
+4. Ejecuta mapeo GeoJSON (script generado anteriormente):
+   python generate_geojson_mapping.py
+
+5. Inicia backend:
+   cd backend && python app.py
+
+6. Inicia frontend (en otra terminal):
+   cd frontend && npm start
+
+7. Accede a http://localhost:3000
+
+
+NOTAS IMPORTANTES:
+==================
+
+- Los modelos DEBEN estar en db/ con los nombres exactos indicados
+- Si cambias el puerto del backend, actualiza API_BASE_URL en frontend/src/utils/constants.js
+- Para producción, sigue instrucciones en README.md sección "Deployment a Dominio"

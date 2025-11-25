@@ -1,0 +1,51 @@
+# Modelos entrenados (descargar de Google Drive - ver README)
+00_predictive_displacement_model/db/02a_classical_models/
+00_predictive_displacement_model/db/02b_neural_networks/
+01_displacement_web/db/02a_classical_models/
+01_displacement_web/db/02b_neural_networks/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+displacement/
+*.egg-info/
+dist/
+build/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Node.js (Frontend)
+01_displacement_web/frontend/node_modules/
+01_displacement_web/frontend/build/
+01_displacement_web/frontend/.env
+package-lock.json
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Datos
+*.csv
+*.xlsx
+
+# Otros
+.env
+.env.local
+*.tar.gz

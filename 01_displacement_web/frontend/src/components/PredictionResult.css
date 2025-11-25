@@ -1,0 +1,90 @@
+.prediction-result {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 2px solid #BDC3C7;
+}
+
+.result-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #2C3E50;
+  margin-bottom: 15px;
+}
+
+.result-box {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.result-item {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.result-badge {
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.result-badge.displacement {
+  background-color: #E74C3C;
+  color: white;
+}
+
+.result-badge.other {
+  background-color: #3498DB;
+  color: white;
+}
+
+.result-status {
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.result-status.correct {
+  background-color: #2ECC71;
+  color: white;
+}
+
+.result-status.incorrect {
+  background-color: #E74C3C;
+  color: white;
+}
+
+.validation-info {
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.validation-info.warning {
+  background-color: #FFF3CD;
+  border: 1px solid #FFC107;
+  color: #856404;
+}
+
+.validation-info.success {
+  background-color: #D4EDDA;
+  border: 1px solid #28A745;
+  color: #155724;
+}
+
+.validation-info ul {
+  margin: 10px 0;
+  padding-left: 20px;
+}
+
+.validation-info .note {
+  margin-top: 10px;
+  font-style: italic;
+  font-size: 12px;
+}
