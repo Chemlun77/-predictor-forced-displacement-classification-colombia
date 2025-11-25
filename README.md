@@ -108,7 +108,7 @@ Aplicación disponible en: http://localhost:3000
 - Leaflet (mapas)
 - Axios
 
-## ��� Modelos
+## Modelos
 
 - **Logistic Regression**
 - **Random Forest**
