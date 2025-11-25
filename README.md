@@ -1,44 +1,44 @@
-# Predictor de Clasificación de Desplazamiento Forzado - Conflicto Armado en Colombia
+# Forced Displacement Classification Predictor - Armed Conflict in Colombia
 
-Aplicación web para predecir y clasificar eventos de desplazamiento forzado en Colombia usando modelos de machine learning entrenados con datos del Registro Único de Víctimas (RUV).
+Web application to predict and classify forced displacement events in Colombia using machine learning models trained with data from the Unique Registry of Victims (RUV).
 
-## Estructura del Proyecto
+## Project Structure
 ```
 project_00_RUV_displacement/
-├── 00_predictive_displacement_model/    # Notebooks y scripts de entrenamiento
-└── 01_displacement_web/                 # Aplicación web
-    ├── backend/                         # API Flask
-    ├── frontend/                        # Interfaz React
-    └── db/                              # Modelos entrenados (descargar aparte)
+├── 00_predictive_displacement_model/    # Training notebooks and scripts
+└── 01_displacement_web/                 # Web application
+    ├── backend/                         # Flask API
+    ├── frontend/                        # React interface
+    └── db/                              # Trained models (download separately)
 ```
 
-## Instalación
+## Installation
 
-### 1. Clonar el repositorio
+### 1. Clone the repository
 ```bash
-git clone https://github.com/TU_USUARIO/TU_REPO.git
-cd TU_REPO
+git clone https://github.com/Chemlun77/-predictor-forced-displacement-classification-colombia.git
+cd -predictor-forced-displacement-classification-colombia
 ```
 
-### 2. Descargar modelos entrenados
+### 2. Download trained models
 
-**Los modelos NO están en el repositorio por su tamaño. Descárgalos desde Google Drive:**
+**Models are NOT included in the repository due to their size. Download them from Google Drive:**
 
-- **Modelos clásicos (3.9 GB):** [Descargar aquí](https://drive.google.com/file/d/10HN9Wv-u6i2FT6Kb5QrOgDib_9XKvs1L/view?usp=sharing)
-- **Redes neuronales (13 MB):** [Descargar aquí](https://drive.google.com/file/d/1-Q2-kcODg225sMGdWnTOJ3Y_5fWYgMDI/view?usp=sharing)
+- **Classical models (3.9 GB):** [Download here](https://drive.google.com/file/d/10HN9Wv-u6i2FT6Kb5QrOgDib_9XKvs1L/view?usp=sharing)
+- **Neural networks (13 MB):** [Download here](https://drive.google.com/file/d/1-Q2-kcODg225sMGdWnTOJ3Y_5fWYgMDI/view?usp=sharing)
 
-**Extraer en la ubicación correcta:**
+**Extract to the correct location:**
 ```bash
 cd 01_displacement_web/db
 
-# Extraer modelos clásicos
+# Extract classical models
 tar -xzf modelos_clasicos.tar.gz
 
-# Extraer redes neuronales
+# Extract neural networks
 tar -xzf modelos_redes_neuronales.tar.gz
 ```
 
-**Estructura final esperada:**
+**Expected final structure:**
 ```
 01_displacement_web/db/
 ├── 02a_classical_models/saved_models/
@@ -55,25 +55,25 @@ tar -xzf modelos_redes_neuronales.tar.gz
     └── numeric_scalers.pkl
 ```
 
-### 3. Instalar dependencias del backend
+### 3. Install backend dependencies
 ```bash
 cd 01_displacement_web/backend
 
-# Crear ambiente conda
+# Create conda environment
 conda create -n displacement python=3.10 -y
 conda activate displacement
 
-# Instalar dependencias
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-### 4. Instalar dependencias del frontend
+### 4. Install frontend dependencies
 ```bash
 cd ../frontend
 npm install
 ```
 
-## Ejecución
+## Running the Application
 
 ### Terminal 1 - Backend:
 ```bash
@@ -82,7 +82,7 @@ conda activate displacement
 python app.py
 ```
 
-Backend corriendo en: http://127.0.0.1:5000
+Backend running at: http://127.0.0.1:5000
 
 ### Terminal 2 - Frontend:
 ```bash
@@ -90,9 +90,9 @@ cd 01_displacement_web/frontend
 npm start
 ```
 
-Aplicación disponible en: http://localhost:3000
+Application available at: http://localhost:3000
 
-## Tecnologías
+## Technologies
 
 **Backend:**
 - Python 3.10
@@ -101,29 +101,29 @@ Aplicación disponible en: http://localhost:3000
 - Scikit-learn 1.7.2
 - XGBoost 2.1.0
 - Pandas 2.2+
-- Sodapy (API Socrata)
+- Sodapy (Socrata API)
 
 **Frontend:**
 - React 18
-- Leaflet (mapas)
+- Leaflet (maps)
 - Axios
 
-## ��� Modelos
+## Models
 
 - **Logistic Regression**
 - **Random Forest**
 - **XGBoost**
-- **ResNet Style (Red Neuronal)**
-- **Deep - Wide & Deep (Red Neuronal)**
+- **ResNet Style (Neural Network)**
+- **Deep - Wide & Deep (Neural Network)**
 
-## Datos
+## Data
 
-Fuente: [Registro Único de Víctimas - datos.gov.co](https://www.datos.gov.co/Inclusi-n-Social-y-Reconciliaci-n/Registro-nico-de-V-ctimas-RUV-a-nivel-nacional-/dyjp-uwwh)
+Source: [Unique Registry of Victims - datos.gov.co](https://www.datos.gov.co/Inclusi-n-Social-y-Reconciliaci-n/Registro-nico-de-V-ctimas-RUV-a-nivel-nacional-/dyjp-uwwh)
 
-## Autor
+## Author
 
 Fabian Luna - Universidad Nacional de Colombia
 
-## Licencia
+## License
 
-Este proyecto es de código abierto para fines educativos y de investigación.
+This project is open source for educational and research purposes.
