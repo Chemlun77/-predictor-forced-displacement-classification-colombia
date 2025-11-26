@@ -148,17 +148,17 @@ def analyze_matches(matches_df, prediction_result):
     displacement_count = 0
     other_count = 0
     
-    # Debug: imprimir primeras filas
-    print("\n=== PRIMERAS 3 FILAS DE RESULTADOS ===")
-    for idx, row in matches_df.head(3).iterrows():
-        print(f"Row {idx}:")
-        print(f"  Columnas disponibles: {list(row.keys())}")
-        if 'hecho' in row:
-            print(f"  hecho: {row['hecho']}")
-        if 'HECHO' in row:
-            print(f"  HECHO: {row['HECHO']}")
-        print()
-    print("=" * 50)
+    # # Debug: imprimir primeras filas
+    # print("\n=== PRIMERAS 3 FILAS DE RESULTADOS ===")
+    # for idx, row in matches_df.head(3).iterrows():
+    #     print(f"Row {idx}:")
+    #     print(f"  Columnas disponibles: {list(row.keys())}")
+    #     if 'hecho' in row:
+    #         print(f"  hecho: {row['hecho']}")
+    #     if 'HECHO' in row:
+    #         print(f"  HECHO: {row['HECHO']}")
+    #     print()
+    # print("=" * 50)
     
     for _, row in matches_df.iterrows():
         # Intentar ambos nombres de columna

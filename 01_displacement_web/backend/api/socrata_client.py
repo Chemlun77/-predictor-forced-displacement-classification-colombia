@@ -20,9 +20,9 @@ class SocrataClient:
         
         where_str = " AND ".join(where_clauses)
         
-        print(f"\n=== QUERY DEBUG ===")
-        print(f"WHERE: {where_str}")
-        print(f"==================\n")
+        # print(f"\n=== QUERY DEBUG ===")
+        # print(f"WHERE: {where_str}")
+        # print(f"==================\n")
         
         try:
             results = self.client.get(
@@ -31,7 +31,7 @@ class SocrataClient:
                 limit=1000
             )
             
-            print(f"Results found: {len(results)}")
+            # print(f"Results found: {len(results)}")
             
             if results:
                 df = pd.DataFrame.from_records(results)
