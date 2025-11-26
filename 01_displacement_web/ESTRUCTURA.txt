@@ -1,103 +1,181 @@
-ESTRUCTURA DE ARCHIVOS DEL PROYECTO
-====================================
+PROJECT STRUCTURE
+=================================================================================
 
-Copia los archivos generados siguiendo esta estructura:
-
-proyecto-colombia-displacement/
+project_00_RUV_displacement/
 │
-├── README.md                                    [✓ Generado]
+├── README.md                                    # Main documentation
+├── .gitignore                                   # Git ignore rules
 │
-├── backend/
-│   ├── app.py                                   [✓ Generado]
-│   ├── requirements.txt                         [✓ Generado]
+├── 00_predictive_displacement_model/            # MODEL TRAINING & ANALYSIS
 │   │
-│   ├── preprocessing/
-│   │   ├── __init__.py                         [✓ Generado]
-│   │   ├── category_mappings.py                [✓ Generado]
-│   │   ├── data_cleaner.py                     [✓ Generado]
-│   │   └── geo_data.py                         [✓ Generado]
+│   ├── 001_data_analysis.ipynb                 # Exploratory data analysis
+│   ├── 002_train_classical_model.ipynb         # Classical ML training
+│   ├── 003_train_neural_networks_embedd.ipynb  # Neural networks training
+│   ├── 004_final_report.ipynb                  # Performance evaluation & report
 │   │
-│   ├── api/
-│   │   ├── __init__.py                         [✓ Generado]
-│   │   └── socrata_client.py                   [✓ Generado]
+│   ├── db/                                      # TRAINED MODELS & METRICS
+│   │   ├── 02a_classical_models/
+│   │   │   ├── saved_models/                   # Trained classical ML models (.pkl)
+│   │   │   │   ├── Logistic_Regression_best_model.pkl
+│   │   │   │   ├── Random_Forest_best_model.pkl
+│   │   │   │   ├── XGBoost_best_model.pkl
+│   │   │   │   ├── categorical_encoders.pkl
+│   │   │   │   └── numeric_scalers.pkl
+│   │   │   │
+│   │   │   ├── model_data/                     # Model artifacts & data
+│   │   │   │   ├── confusion_matrices/         # Confusion matrices per model (.xlsx)
+│   │   │   │   ├── roc_data/                   # ROC curve data (.xlsx)
+│   │   │   │   └── feature_names.xlsx          # Feature names for models
+│   │   │   │
+│   │   │   ├── metrics/                        # Performance metrics
+│   │   │   │   └── all_architectures_tested_comprehensive.xlsx
+│   │   │   │
+│   │   │   └── comparative_tables/             # Model comparison tables
+│   │   │       └── best_models_comparison_complete.xlsx
+│   │   │
+│   │   └── 02b_neural_networks/
+│   │       ├── saved_models/                   # Trained neural networks (.keras)
+│   │       │   ├── ResNet_Style_best_model.keras
+│   │       │   ├── Deep_best_model.keras
+│   │       │   ├── categorical_encoders.pkl
+│   │       │   ├── embedding_info.pkl
+│   │       │   └── numeric_scalers.pkl
+│   │       │
+│   │       ├── model_data/                     # NN artifacts & data
+│   │       │   ├── confusion_matrices/
+│   │       │   └── roc_data/
+│   │       │
+│   │       ├── metrics/
+│   │       │   └── all_architectures_tested_comprehensive.xlsx
+│   │       │
+│   │       └── comparative_tables/
+│   │           └── best_models_comparison_complete.xlsx
 │   │
-│   └── prediction/
-│       ├── __init__.py                         [✓ Generado]
-│       └── predictor.py                        [✓ Generado]
-│
-├── frontend/
-│   ├── package.json                            [✓ Generado]
-│   │
-│   ├── public/
-│   │   └── index.html                          [✓ Generado]
-│   │
-│   └── src/
-│       ├── App.jsx                             [✓ Generado]
-│       ├── App.css                             [✓ Generado]
-│       ├── index.js                            [✓ Generado]
+│   └── fig/                                     # VISUALIZATIONS & REPORTS
+│       ├── 01_exploratory_analysis/            # EDA figures
+│       │   ├── before_cleaning/                # Initial data visualizations
+│       │   └── predictors_analysis/            # Feature correlation & importance
 │       │
-│       ├── components/
-│       │   ├── ControlPanel.jsx                [✓ Generado]
-│       │   ├── ControlPanel.css                [✓ Generado]
-│       │   ├── MapView.jsx                     [✓ Generado]
-│       │   ├── MapView.css                     [✓ Generado]
-│       │   ├── ModelSelector.jsx               [✓ Generado]
-│       │   ├── ModelSelector.css               [✓ Generado]
-│       │   ├── VariableInputs.jsx              [✓ Generado]
-│       │   ├── VariableInputs.css              [✓ Generado]
-│       │   ├── PredictionResult.jsx            [✓ Generado]
-│       │   └── PredictionResult.css            [✓ Generado]
+│       ├── 04_all_models/                      # Model comparison figures
+│       │   ├── individual/                     # Per-model visualizations
+│       │   │   ├── classical/
+│       │   │   └── neural_networks/
+│       │   │
+│       │   └── subplots/                       # Combined visualizations
 │       │
-│       ├── services/
-│       │   └── apiService.js                   [✓ Generado]
-│       │
-│       └── utils/
-│           └── constants.js                    [✓ Generado]
+│       └── final_report/                       # Final report outputs
+│           ├── metrics_comparison_table.csv    # Comprehensive metrics table
+│           ├── metrics_bar_comparison.png      # Bar chart comparison
+│           ├── confusion_matrix_*.png          # Individual confusion matrices
+│           ├── roc_curves_combined.png         # Combined ROC curves
+│           ├── feature_importance.png          # Feature importance plot
+│           └── feature_importance_table.xlsx   # Feature importance data
 │
-└── db/                                          [⚠ DEBES COPIAR TUS MODELOS AQUÍ]
-    ├── 02a_classical_models/
-    │   └── saved_models/
-    │       ├── Logistic_Regression_best_model.pkl
-    │       ├── Random_Forest_best_model.pkl
-    │       ├── XGBoost_best_model.pkl
-    │       ├── categorical_encoders.pkl
-    │       └── numeric_scalers.pkl
+└── 01_displacement_web/                         # WEB APPLICATION
     │
-    └── 02b_neural_networks/
-        └── saved_models/
-            ├── ResNet_Style_best_model.keras
-            ├── Deep_best_model.keras
-            ├── categorical_encoders.pkl
-            ├── embedding_info.pkl
-            └── numeric_scalers.pkl
+    ├── README.md                                # Web app specific documentation
+    ├── ESTRUCTURA.txt                           # This file
+    ├── departamentos_geojson_mapping_manual.json # Geographic data mapping
+    ├── generate_geojson_mapping.py              # Script to generate geo mappings
+    │
+    ├── backend/                                 # FLASK API (Python)
+    │   ├── app.py                              # Main Flask application
+    │   ├── requirements.txt                    # Python dependencies
+    │   │
+    │   ├── api/                                # API integration layer
+    │   │   ├── __init__.py
+    │   │   └── socrata_client.py              # Socrata API client for RUV data
+    │   │
+    │   ├── prediction/                         # Prediction logic
+    │   │   ├── __init__.py
+    │   │   └── predictor.py                   # Model loading & prediction
+    │   │
+    │   └── preprocessing/                      # Data preprocessing
+    │       ├── __init__.py
+    │       ├── category_mappings.py           # Category encoding mappings
+    │       ├── data_cleaner.py                # Input data cleaning
+    │       └── geo_data.py                    # Geographic data processing
+    │
+    ├── frontend/                               # REACT APPLICATION (JavaScript)
+    │   ├── package.json                       # NPM dependencies
+    │   │
+    │   ├── public/                            # Static assets
+    │   │   └── index.html                     # HTML template
+    │   │
+    │   └── src/                               # React source code
+    │       ├── App.jsx                        # Main application component
+    │       ├── App.css                        # Main application styles
+    │       ├── index.js                       # Application entry point
+    │       │
+    │       ├── components/                    # React components
+    │       │   ├── ControlPanel.jsx          # Main control panel
+    │       │   ├── ControlPanel.css
+    │       │   ├── ModelSelector.jsx         # Model selection dropdown
+    │       │   ├── ModelSelector.css
+    │       │   ├── VariableInputs.jsx        # Input form for variables
+    │       │   ├── VariableInputs.css
+    │       │   ├── PredictionResult.jsx      # Results display
+    │       │   ├── PredictionResult.css
+    │       │   ├── MapView.jsx               # Interactive map (Leaflet)
+    │       │   └── MapView.css
+    │       │
+    │       ├── services/                      # API communication
+    │       │   └── apiService.js             # Axios API calls to backend
+    │       │
+    │       └── utils/                         # Utilities & constants
+    │           └── constants.js              # Configuration constants
+    │
+    └── db/                                     # PRODUCTION MODELS (download separately)
+        ├── 02a_classical_models/              # Classical ML models (3.9 GB)
+        │   └── saved_models/                  # [Download from Google Drive]
+        │
+        └── 02b_neural_networks/               # Neural networks (13 MB)
+            └── saved_models/                  # [Download from Google Drive]
 
+=================================================================================
 
-PASOS SIGUIENTES:
-=================
+KEY DIRECTORIES EXPLAINED:
+=================================================================================
 
-1. Copia todos los archivos generados a tu proyecto local
+00_predictive_displacement_model/
+    Core machine learning pipeline for training and evaluating models.
+    Contains all notebooks for data analysis, model training, and reporting.
+    Stores trained models, metrics, and visualizations.
 
-2. Copia tus modelos entrenados a la carpeta db/ según estructura
+01_displacement_web/
+    Production web application with Flask backend and React frontend.
+    Provides interactive interface for making predictions using trained models.
+    Connects to Colombian RUV database for data validation.
 
-3. Instala dependencias:
-   cd backend && pip install -r requirements.txt
-   cd frontend && npm install
+db/ folders (both locations)
+    Storage for trained models, encoders, scalers, and preprocessing artifacts.
+    CRITICAL: Models in 01_displacement_web/db/ must be downloaded separately
+    from Google Drive (not in git due to size constraints).
 
-4. Ejecuta mapeo GeoJSON (script generado anteriormente):
-   python generate_geojson_mapping.py
+fig/ folders
+    All generated visualizations, plots, and performance reports.
+    Includes confusion matrices, ROC curves, feature importance, etc.
 
-5. Inicia backend:
-   cd backend && python app.py
+=================================================================================
 
-6. Inicia frontend (en otra terminal):
-   cd frontend && npm start
+IMPORTANT NOTES:
+=================================================================================
 
-7. Accede a http://localhost:3000
+1. MODEL FILES NOT IN GIT:
+   - All .pkl, .keras, and large model files are in .gitignore
+   - Download separately from Google Drive links in README.md
 
+2. REQUIRED ENVIRONMENTS:
+   - Training: Python 3.13 (conda: model_training)
+   - Web App Backend: Python 3.10 (conda: displacement)
+   - Web App Frontend: Node.js v24.11.1 LTS
 
-NOTAS IMPORTANTES:
-==================
+3. DATA SOURCE:
+   - Colombian Unique Registry of Victims (RUV)
+   - Accessed via Socrata API (datos.gov.co)
+   - 7+ million victim records
 
-- Los modelos DEBEN estar en db/ con los nombres exactos indicados
-- Si cambias el puerto del backend, actualiza API_BASE_URL en frontend/src/utils/constants.js
-- Para producción, sigue instrucciones en README.md sección "Deployment a Dominio"
+4. EXECUTION ORDER FOR TRAINING:
+   001 → 002 or 003 (parallel) → 004
+
+=================================================================================
