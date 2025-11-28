@@ -27,60 +27,20 @@ class ModelPredictor:
         self.models = {}
         self.encoders = {}
         self.scalers = {}
-        self.load_models()
+        # Don't load models on init - load them on demand
+        self.load_encoders_scalers()
     
-    def load_models(self):
+    def load_encoders_scalers(self):
+        """Load only encoders and scalers (lightweight)"""
         classic_path = os.path.join(self.models_dir, '02a_classical_models/saved_models')
         nn_path = os.path.join(self.models_dir, '02b_neural_networks/saved_models')
         
-        models_loaded = []
-        models_failed = []
-        
         try:
-            # Load classical models (with Random Forest optional for deployment)
-            try:
-                self.models['Logistic_Regression'] = joblib.load(
-                    os.path.join(classic_path, 'Logistic_Regression_best_model.pkl'))
-                models_loaded.append('Logistic_Regression')
-            except Exception as e:
-                models_failed.append(f'Logistic_Regression: {str(e)}')
-            
-            try:
-                self.models['Random_Forest'] = joblib.load(
-                    os.path.join(classic_path, 'Random_Forest_best_model.pkl'))
-                models_loaded.append('Random_Forest')
-            except FileNotFoundError:
-                print("⚠ Random Forest model not found (excluded from deployment)")
-            except Exception as e:
-                models_failed.append(f'Random_Forest: {str(e)}')
-            
-            try:
-                self.models['XGBoost'] = joblib.load(
-                    os.path.join(classic_path, 'XGBoost_best_model.pkl'))
-                models_loaded.append('XGBoost')
-            except Exception as e:
-                models_failed.append(f'XGBoost: {str(e)}')
-            
             # Load encoders and scalers for classical models
             self.encoders['classic'] = joblib.load(
                 os.path.join(classic_path, 'categorical_encoders.pkl'))
             self.scalers['classic'] = joblib.load(
                 os.path.join(classic_path, 'numeric_scalers.pkl'))
-            
-            # Load neural network models
-            try:
-                self.models['ResNet_Style'] = keras.models.load_model(
-                    os.path.join(nn_path, 'ResNet_Style_best_model.keras'))
-                models_loaded.append('ResNet_Style')
-            except Exception as e:
-                models_failed.append(f'ResNet_Style: {str(e)}')
-            
-            try:
-                self.models['Deep'] = keras.models.load_model(
-                    os.path.join(nn_path, 'Deep_best_model.keras'))
-                models_loaded.append('Deep')
-            except Exception as e:
-                models_failed.append(f'Deep: {str(e)}')
             
             # Load encoders and scalers for neural networks
             self.encoders['nn'] = joblib.load(
@@ -90,16 +50,59 @@ class ModelPredictor:
             self.embedding_info = joblib.load(
                 os.path.join(nn_path, 'embedding_info.pkl'))
             
-            print(f"✓ Models loaded successfully: {', '.join(models_loaded)}")
-            if models_failed:
-                print(f"⚠ Models failed to load: {', '.join(models_failed)}")
-            
-            if len(models_loaded) == 0:
-                raise Exception("No models could be loaded")
-                
+            print("✓ Encoders and scalers loaded successfully")
         except Exception as e:
-            print(f"Error loading models: {e}")
+            print(f"Error loading encoders/scalers: {e}")
             raise
+    
+    def load_model(self, model_name):
+        """Load a specific model on demand"""
+        if model_name in self.models:
+            return  # Already loaded
+        
+        classic_path = os.path.join(self.models_dir, '02a_classical_models/saved_models')
+        nn_path = os.path.join(self.models_dir, '02b_neural_networks/saved_models')
+        
+        try:
+            if model_name == 'Logistic_Regression':
+                self.models[model_name] = joblib.load(
+                    os.path.join(classic_path, 'Logistic_Regression_best_model.pkl'))
+                print(f"✓ {model_name} loaded")
+            
+            elif model_name == 'Random_Forest':
+                self.models[model_name] = joblib.load(
+                    os.path.join(classic_path, 'Random_Forest_best_model.pkl'))
+                print(f"✓ {model_name} loaded")
+            
+            elif model_name == 'XGBoost':
+                self.models[model_name] = joblib.load(
+                    os.path.join(classic_path, 'XGBoost_best_model.pkl'))
+                print(f"✓ {model_name} loaded")
+            
+            elif model_name == 'ResNet_Style':
+                self.models[model_name] = keras.models.load_model(
+                    os.path.join(nn_path, 'ResNet_Style_best_model.keras'))
+                print(f"✓ {model_name} loaded")
+            
+            elif model_name == 'Deep':
+                self.models[model_name] = keras.models.load_model(
+                    os.path.join(nn_path, 'Deep_best_model.keras'))
+                print(f"✓ {model_name} loaded")
+            
+        except FileNotFoundError:
+            if model_name == 'Random_Forest':
+                print(f"⚠ {model_name} not found (excluded from deployment)")
+                raise FileNotFoundError(f"{model_name} model file not found")
+            raise
+        except Exception as e:
+            print(f"Error loading {model_name}: {e}")
+            raise
+    
+    def unload_model(self, model_name):
+        """Unload a model to free memory"""
+        if model_name in self.models:
+            del self.models[model_name]
+            print(f"✓ {model_name} unloaded from memory")
     
     def preprocess_classic(self, input_data):
         categorical_cols = ['SEXO', 'ETNIA', 'CICLO_VITAL', 'DISCAPACIDAD', 'ESTADO_DEPTO']
@@ -164,6 +167,9 @@ class ModelPredictor:
         return inputs
     
     def predict(self, model_name, input_data):
+        # Load model on demand
+        self.load_model(model_name)
+        
         model = self.models.get(model_name)
         
         if not model:
@@ -183,6 +189,9 @@ class ModelPredictor:
             X = self.preprocess_nn(input_data)
             proba = float(model.predict(X, verbose=0)[0][0])
             pred = 1 if proba >= 0.5 else 0
+        
+        # Unload model after prediction to free memory
+        self.unload_model(model_name)
         
         return {
             'prediction': int(pred),
