@@ -23,3 +23,193 @@
   flex: 1;
   overflow: hidden;
 }
+
+/* App content adjustment when chatbot is visible */
+.app-content.with-chatbot {
+  margin-right: 25%;
+  transition: margin-right 0.3s ease;
+}
+
+@media (max-width: 1200px) {
+  .app-content.with-chatbot {
+    margin-right: 30%;
+  }
+}
+
+@media (max-width: 900px) {
+  .app-content.with-chatbot {
+    margin-right: 0;
+  }
+}
+
+/* Floating chat button */
+.floating-chat-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+  z-index: 999;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.floating-chat-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(102, 126, 234, 0.5);
+}
+
+.floating-chat-btn:active {
+  transform: translateY(-2px);
+}
+
+.chat-icon {
+  font-size: 24px;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-8px);
+  }
+  60% {
+    transform: translateY(-4px);
+  }
+}
+
+.chat-label {
+  font-size: 15px;
+}
+
+/* Responsive adjustments for floating button */
+@media (max-width: 768px) {
+  .floating-chat-btn {
+    bottom: 20px;
+    right: 20px;
+    padding: 14px 20px;
+  }
+  
+  .chat-label {
+    display: none;
+  }
+  
+  .chat-icon {
+    font-size: 28px;
+  }
+}
+
+/* ============================================================================
+   AGREGAR ESTOS ESTILOS AL FINAL DE TU App.css EXISTENTE
+   ============================================================================ */
+
+/* Header adjustment when chatbot is visible - EVITA QUE SE TAPE EL TÍTULO */
+.app-header.with-chatbot {
+  margin-right: 25%;
+  transition: margin-right 0.3s ease;
+}
+
+/* App content adjustment when chatbot is visible */
+.app-content.with-chatbot {
+  margin-right: 25%;
+  transition: margin-right 0.3s ease;
+}
+
+@media (max-width: 1200px) {
+  .app-header.with-chatbot {
+    margin-right: 30%;
+  }
+  
+  .app-content.with-chatbot {
+    margin-right: 30%;
+  }
+}
+
+@media (max-width: 900px) {
+  .app-header.with-chatbot {
+    margin-right: 0;
+  }
+  
+  .app-content.with-chatbot {
+    margin-right: 0;
+  }
+}
+
+/* Floating chat button */
+.floating-chat-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+  z-index: 999;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.floating-chat-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(102, 126, 234, 0.5);
+}
+
+.floating-chat-btn:active {
+  transform: translateY(-2px);
+}
+
+.chat-icon {
+  font-size: 24px;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-8px);
+  }
+  60% {
+    transform: translateY(-4px);
+  }
+}
+
+.chat-label {
+  font-size: 15px;
+}
+
+/* Responsive adjustments for floating button */
+@media (max-width: 768px) {
+  .floating-chat-btn {
+    bottom: 20px;
+    right: 20px;
+    padding: 14px 20px;
+  }
+  
+  .chat-label {
+    display: none;
+  }
+  
+  .chat-icon {
+    font-size: 28px;
+  }
+}

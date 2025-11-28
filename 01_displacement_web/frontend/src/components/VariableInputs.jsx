@@ -1,8 +1,25 @@
 import React from 'react';
 import './VariableInputs.css';
 
+// Training data ranges
+const TRAINING_RANGES = {
+  VIGENCIA: { min: 1985, max: 2025 },
+  EVENTOS: { min: 0, max: 351905 }
+};
+
 function VariableInputs({ variables, departments, values, onChange }) {
   if (!variables) return null;
+
+  // Check if values are out of range
+  const isVigenciaOutOfRange = values.VIGENCIA && (
+    parseInt(values.VIGENCIA) < TRAINING_RANGES.VIGENCIA.min || 
+    parseInt(values.VIGENCIA) > TRAINING_RANGES.VIGENCIA.max
+  );
+
+  const isEventosOutOfRange = values.EVENTOS !== '' && (
+    parseInt(values.EVENTOS) < TRAINING_RANGES.EVENTOS.min || 
+    parseInt(values.EVENTOS) > TRAINING_RANGES.EVENTOS.max
+  );
 
   return (
     <div className="variable-inputs">
@@ -79,31 +96,35 @@ function VariableInputs({ variables, departments, values, onChange }) {
       </div>
 
       <div className="input-group">
-        <label className="label">
-          Año (VIGENCIA): {variables.numeric.VIGENCIA.min} - {variables.numeric.VIGENCIA.max_prediction}
-        </label>
+        <label className="label">Año (VIGENCIA):</label>
         <input 
           type="number"
           value={values.VIGENCIA}
           onChange={(e) => onChange('VIGENCIA', e.target.value)}
-          min={variables.numeric.VIGENCIA.min}
-          max={variables.numeric.VIGENCIA.max_prediction}
           className="input"
         />
+        {isVigenciaOutOfRange && (
+          <div className="input-warning">
+            ⚠ Año fuera del rango de entrenamiento ({TRAINING_RANGES.VIGENCIA.min}-{TRAINING_RANGES.VIGENCIA.max}). 
+            La predicción puede ser menos confiable.
+          </div>
+        )}
       </div>
 
       <div className="input-group">
-        <label className="label">
-          Eventos: {variables.numeric.EVENTOS.min} - {variables.numeric.EVENTOS.max}
-        </label>
+        <label className="label">Eventos:</label>
         <input 
           type="number"
           value={values.EVENTOS}
           onChange={(e) => onChange('EVENTOS', e.target.value)}
-          min={variables.numeric.EVENTOS.min}
-          max={variables.numeric.EVENTOS.max}
           className="input"
         />
+        {isEventosOutOfRange && (
+          <div className="input-warning">
+            ⚠ Eventos fuera del rango de entrenamiento ({TRAINING_RANGES.EVENTOS.min.toLocaleString()}-{TRAINING_RANGES.EVENTOS.max.toLocaleString()}). 
+            La predicción puede ser menos confiable.
+          </div>
+        )}
       </div>
 
       <h3 className="section-title">Variables Geográficas (Automáticas)</h3>

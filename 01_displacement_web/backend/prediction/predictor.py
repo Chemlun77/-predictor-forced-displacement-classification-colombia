@@ -33,24 +33,56 @@ class ModelPredictor:
         classic_path = os.path.join(self.models_dir, '02a_classical_models/saved_models')
         nn_path = os.path.join(self.models_dir, '02b_neural_networks/saved_models')
         
+        models_loaded = []
+        models_failed = []
+        
         try:
-            self.models['Logistic_Regression'] = joblib.load(
-                os.path.join(classic_path, 'Logistic_Regression_best_model.pkl'))
-            self.models['Random_Forest'] = joblib.load(
-                os.path.join(classic_path, 'Random_Forest_best_model.pkl'))
-            self.models['XGBoost'] = joblib.load(
-                os.path.join(classic_path, 'XGBoost_best_model.pkl'))
+            # Load classical models (with Random Forest optional for deployment)
+            try:
+                self.models['Logistic_Regression'] = joblib.load(
+                    os.path.join(classic_path, 'Logistic_Regression_best_model.pkl'))
+                models_loaded.append('Logistic_Regression')
+            except Exception as e:
+                models_failed.append(f'Logistic_Regression: {str(e)}')
             
+            try:
+                self.models['Random_Forest'] = joblib.load(
+                    os.path.join(classic_path, 'Random_Forest_best_model.pkl'))
+                models_loaded.append('Random_Forest')
+            except FileNotFoundError:
+                print("⚠ Random Forest model not found (excluded from deployment)")
+            except Exception as e:
+                models_failed.append(f'Random_Forest: {str(e)}')
+            
+            try:
+                self.models['XGBoost'] = joblib.load(
+                    os.path.join(classic_path, 'XGBoost_best_model.pkl'))
+                models_loaded.append('XGBoost')
+            except Exception as e:
+                models_failed.append(f'XGBoost: {str(e)}')
+            
+            # Load encoders and scalers for classical models
             self.encoders['classic'] = joblib.load(
                 os.path.join(classic_path, 'categorical_encoders.pkl'))
             self.scalers['classic'] = joblib.load(
                 os.path.join(classic_path, 'numeric_scalers.pkl'))
             
-            self.models['ResNet_Style'] = keras.models.load_model(
-                os.path.join(nn_path, 'ResNet_Style_best_model.keras'))
-            self.models['Deep'] = keras.models.load_model(
-                os.path.join(nn_path, 'Deep_best_model.keras'))
+            # Load neural network models
+            try:
+                self.models['ResNet_Style'] = keras.models.load_model(
+                    os.path.join(nn_path, 'ResNet_Style_best_model.keras'))
+                models_loaded.append('ResNet_Style')
+            except Exception as e:
+                models_failed.append(f'ResNet_Style: {str(e)}')
             
+            try:
+                self.models['Deep'] = keras.models.load_model(
+                    os.path.join(nn_path, 'Deep_best_model.keras'))
+                models_loaded.append('Deep')
+            except Exception as e:
+                models_failed.append(f'Deep: {str(e)}')
+            
+            # Load encoders and scalers for neural networks
             self.encoders['nn'] = joblib.load(
                 os.path.join(nn_path, 'categorical_encoders.pkl'))
             self.scalers['nn'] = joblib.load(
@@ -58,7 +90,13 @@ class ModelPredictor:
             self.embedding_info = joblib.load(
                 os.path.join(nn_path, 'embedding_info.pkl'))
             
-            print("✓ All models loaded successfully")
+            print(f"✓ Models loaded successfully: {', '.join(models_loaded)}")
+            if models_failed:
+                print(f"⚠ Models failed to load: {', '.join(models_failed)}")
+            
+            if len(models_loaded) == 0:
+                raise Exception("No models could be loaded")
+                
         except Exception as e:
             print(f"Error loading models: {e}")
             raise

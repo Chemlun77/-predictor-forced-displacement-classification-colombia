@@ -1,0 +1,30 @@
+services:
+  # Backend API
+  - type: web
+    name: displacement-predictor-api
+    env: python
+    region: oregon
+    plan: free
+    branch: main
+    buildCommand: "cd 01_displacement_web/backend && pip install -r requirements.txt"
+    startCommand: "cd 01_displacement_web/backend && gunicorn app:app --bind 0.0.0.0:$PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.0
+      - key: FLASK_ENV
+        value: production
+    healthCheckPath: /api/models
+
+  # Frontend Static Site
+  - type: web
+    name: displacement-predictor-frontend
+    env: static
+    region: oregon
+    plan: free
+    branch: main
+    buildCommand: "cd 01_displacement_web/frontend && npm install && npm run build"
+    staticPublishPath: 01_displacement_web/frontend/build
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

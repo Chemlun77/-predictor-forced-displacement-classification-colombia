@@ -4,12 +4,58 @@ from preprocessing.data_cleaner import clean_input_data, clean_api_results, get_
 from preprocessing.geo_data import get_department_info, URBAN_CENTER_COORDS, DEPT_CAPITALS
 from api.socrata_client import SocrataClient
 from prediction.predictor import ModelPredictor
+from chatbot.gemini_client import GeminiClient, test_gemini_connection
 
 app = Flask(__name__)
 CORS(app)
 
 predictor = ModelPredictor()
 socrata_client = SocrataClient()
+
+# =============================================================================
+# MODEL METRICS - For chatbot context
+# =============================================================================
+MODEL_METRICS = {
+    'Logistic_Regression': {
+        'accuracy': 0.7416,
+        'precision': 0.6305,
+        'recall': 0.7471,
+        'f1_score': 0.6839,
+        'roc_auc': 0.8185
+    },
+    'Random_Forest': {
+        'accuracy': 0.9188,
+        'precision': 0.8712,
+        'recall': 0.9187,
+        'f1_score': 0.8943,
+        'roc_auc': 0.9822
+    },
+    'XGBoost': {
+        'accuracy': 0.8629,
+        'precision': 0.7818,
+        'recall': 0.8788,
+        'f1_score': 0.8274,
+        'roc_auc': 0.9510
+    },
+    'ResNet_Style': {
+        'accuracy': 0.8673,
+        'precision': 0.9822,
+        'recall': 0.6572,
+        'f1_score': 0.7875,
+        'roc_auc': 0.9622
+    },
+    'Deep': {
+        'accuracy': 0.8261,
+        'precision': 0.9716,
+        'recall': 0.5512,
+        'f1_score': 0.7034,
+        'roc_auc': 0.9438
+    }
+}
+
+# =============================================================================
+# EXISTING ENDPOINTS
+# =============================================================================
 
 @app.route('/api/models', methods=['GET'])
 def get_models():
@@ -91,6 +137,19 @@ def predict():
     data = request.json
     
     model_name = data.get('model')
+    
+    # Check if Random Forest is requested (may not be available in deployment)
+    if model_name == 'Random_Forest':
+        try:
+            # Try to load Random Forest - will fail if model file doesn't exist
+            test_predict = predictor.predict(model_name, None, check_only=True)
+        except:
+            return jsonify({
+                'error': 'Random Forest model is not available in this deployment',
+                'message': 'The Random Forest model (3.9 GB) is excluded from deployment due to memory limitations on the free tier. Please use one of the other available models: Logistic Regression, XGBoost, ResNet-Style, or Deep.',
+                'available_models': ['Logistic_Regression', 'XGBoost', 'ResNet_Style', 'Deep']
+            }), 503
+    
     input_data = {
         'ESTADO_DEPTO': data.get('ESTADO_DEPTO'),
         'SEXO': data.get('SEXO'),
@@ -110,8 +169,27 @@ def predict():
     
     try:
         prediction_result = predictor.predict(model_name, cleaned_input)
+    except FileNotFoundError as e:
+        # Handle case where model file is missing (Random Forest in deployment)
+        if 'Random_Forest' in str(e):
+            return jsonify({
+                'error': 'Random Forest model is not available',
+                'message': 'The Random Forest model (3.9 GB) is excluded from deployment due to memory limitations. Please use Logistic Regression, XGBoost, ResNet-Style, or Deep.',
+                'available_models': ['Logistic_Regression', 'XGBoost', 'ResNet_Style', 'Deep']
+            }), 503
+        return jsonify({'error': f'Model error: {str(e)}'}), 500
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+    
+    # Add label
+    label = 'Desplazamiento Forzado' if prediction_result['prediction'] == 1 else 'Otro Hecho Victimizante'
+    prediction_result['label'] = label
+    
+    # Add confidence (same as probability)
+    prediction_result['confidence'] = prediction_result['probability']
+    
+    # Add model name for chatbot
+    prediction_result['model'] = model_name
     
     filters = {
         'ESTADO_DEPTO': input_data['ESTADO_DEPTO'],
@@ -132,9 +210,14 @@ def predict():
     
     validation_result = analyze_matches(matches_df, prediction_result)
     
+    # Add matches data for chatbot
+    if matches_df is not None and len(matches_df) > 0:
+        validation_result['matches_data'] = matches_df.to_dict('records')
+    
     return jsonify({
         **prediction_result,
-        **validation_result
+        **validation_result,
+        'userInput': input_data  # Add for chatbot
     })
 
 def analyze_matches(matches_df, prediction_result):
@@ -147,18 +230,6 @@ def analyze_matches(matches_df, prediction_result):
     
     displacement_count = 0
     other_count = 0
-    
-    # # Debug: imprimir primeras filas
-    # print("\n=== PRIMERAS 3 FILAS DE RESULTADOS ===")
-    # for idx, row in matches_df.head(3).iterrows():
-    #     print(f"Row {idx}:")
-    #     print(f"  Columnas disponibles: {list(row.keys())}")
-    #     if 'hecho' in row:
-    #         print(f"  hecho: {row['hecho']}")
-    #     if 'HECHO' in row:
-    #         print(f"  HECHO: {row['HECHO']}")
-    #     print()
-    # print("=" * 50)
     
     for _, row in matches_df.iterrows():
         # Intentar ambos nombres de columna
@@ -215,6 +286,160 @@ def get_random_values():
         'km_este_oeste': geo_info['km_este_oeste'],
         'distancia_total': geo_info['distancia_total']
     })
+
+# =============================================================================
+# CHATBOT ENDPOINTS
+# =============================================================================
+
+@app.route('/api/chat/test-key', methods=['POST'])
+def test_api_key():
+    """Test if Gemini API key is valid"""
+    try:
+        data = request.json
+        api_key = data.get('api_key')
+        
+        if not api_key:
+            return jsonify({
+                'success': False,
+                'error': 'API key is required'
+            }), 400
+        
+        # Test the key
+        result = test_gemini_connection(api_key)
+        
+        return jsonify({
+            'success': result['valid'],
+            'message': result['message']
+        })
+    
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+
+@app.route('/api/chat/explain', methods=['POST'])
+def explain_prediction():
+    """Generate AI explanation for a prediction"""
+    try:
+        data = request.json
+        print(f"\n{'='*60}")
+        print(f"[EXPLAIN ENDPOINT] Request received")
+        print(f"{'='*60}")
+        
+        api_key = data.get('api_key')
+        user_input = data.get('user_input')
+        prediction = data.get('prediction')
+        model_name = data.get('model_name')
+        
+        print(f"[EXPLAIN] Has API key: {bool(api_key)}")
+        print(f"[EXPLAIN] User input: {user_input}")
+        print(f"[EXPLAIN] Prediction: {prediction}")
+        print(f"[EXPLAIN] Model name: {model_name}")
+        
+        if not api_key:
+            print(f"[EXPLAIN] ✗ No API key provided")
+            return jsonify({
+                'success': False,
+                'error': 'API key is required'
+            }), 400
+        
+        if not user_input or not prediction or not model_name:
+            print(f"[EXPLAIN] ✗ Missing required data")
+            print(f"  - user_input: {bool(user_input)}")
+            print(f"  - prediction: {bool(prediction)}")
+            print(f"  - model_name: {bool(model_name)}")
+            return jsonify({
+                'success': False,
+                'error': 'Missing required data'
+            }), 400
+        
+        # Get model metrics
+        model_metrics = MODEL_METRICS.get(model_name, {})
+        print(f"[EXPLAIN] Model metrics loaded: {bool(model_metrics)}")
+        
+        # Initialize Gemini client
+        print(f"[EXPLAIN] Initializing Gemini client...")
+        client = GeminiClient(api_key)
+        
+        # Generate explanation
+        print(f"[EXPLAIN] Calling generate_explanation...")
+        explanation = client.generate_explanation(
+            user_input=user_input,
+            prediction=prediction,
+            model_metrics=model_metrics
+        )
+        
+        print(f"[EXPLAIN] ✓ Success! Explanation length: {len(explanation)} chars")
+        print(f"{'='*60}\n")
+        
+        return jsonify({
+            'success': True,
+            'explanation': explanation
+        })
+    
+    except Exception as e:
+        print(f"[EXPLAIN] ✗ Error: {type(e).__name__}: {str(e)}")
+        import traceback
+        print(f"[EXPLAIN] Traceback:")
+        traceback.print_exc()
+        print(f"{'='*60}\n")
+        
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+
+@app.route('/api/chat/message', methods=['POST'])
+def chat_message():
+    """Handle chat messages with context"""
+    try:
+        data = request.json
+        api_key = data.get('api_key')
+        message = data.get('message')
+        context = data.get('context')
+        conversation_history = data.get('conversation_history', [])
+        
+        if not api_key:
+            return jsonify({
+                'success': False,
+                'error': 'API key is required'
+            }), 400
+        
+        if not message or not context:
+            return jsonify({
+                'success': False,
+                'error': 'Message and context are required'
+            }), 400
+        
+        # Initialize Gemini client
+        client = GeminiClient(api_key)
+        
+        # Generate response
+        response_text = client.chat(
+            message=message,
+            context=context,
+            conversation_history=conversation_history
+        )
+        
+        return jsonify({
+            'success': True,
+            'response': response_text
+        })
+    
+    except Exception as e:
+        print(f"Error in chat: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+
+# =============================================================================
+# RUN APP
+# =============================================================================
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

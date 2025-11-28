@@ -82,11 +82,43 @@ function ControlPanel({ models, variables, departments, onDepartmentChange, onPr
         ...formValues
       });
       
-      setPredictionResult(response.data);
-      onPredictionResult(response.data);
+      // Prepare complete context for chatbot
+      const resultWithContext = {
+        ...response.data,
+        userInput: {
+          ESTADO_DEPTO: formValues.ESTADO_DEPTO,
+          SEXO: formValues.SEXO,
+          ETNIA: formValues.ETNIA,
+          DISCAPACIDAD: formValues.DISCAPACIDAD,
+          CICLO_VITAL: formValues.CICLO_VITAL,
+          VIGENCIA: formValues.VIGENCIA,
+          EVENTOS: formValues.EVENTOS
+        },
+        modelName: selectedModel
+      };
+      
+      setPredictionResult(resultWithContext);
+      onPredictionResult(resultWithContext);
     } catch (error) {
       console.error('Error making prediction:', error);
-      alert('Error al realizar la predicción');
+      
+      // Handle Random Forest not available error (503)
+      if (error.response && error.response.status === 503) {
+        const errorData = error.response.data;
+        alert(
+          '⚠️ ' + errorData.error + '\n\n' +
+          errorData.message + '\n\n' +
+          'Modelos disponibles:\n' +
+          '- Logistic Regression\n' +
+          '- XGBoost\n' +
+          '- ResNet-Style\n' +
+          '- Deep (Wide & Deep)'
+        );
+      } else {
+        alert('Error al realizar la predicción. Por favor intenta de nuevo.');
+      }
+      
+      setPredictionResult(null);
     } finally {
       setLoading(false);
     }

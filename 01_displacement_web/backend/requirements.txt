@@ -9,3 +9,5 @@ joblib==1.4.0
 sodapy==2.2.0
 geopy==2.4.0
 requests==2.31.0
+google-generativeai==0.8.3
+python-dotenv==1.0.1

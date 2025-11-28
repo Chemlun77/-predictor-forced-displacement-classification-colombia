@@ -1,10 +1,24 @@
-# Modelos entrenados (descargar de Google Drive - ver README)
+# ===================================================================
+# MODELOS - DEPLOYMENT CONFIGURATION
+# ===================================================================
+# Exclude Random Forest (too large for deployment - 3.9 GB)
+01_displacement_web/db/02a_classical_models/saved_models/Random_Forest_best_model.pkl
+
+# Exclude training models (keep only production models)
 00_predictive_displacement_model/db/02a_classical_models/
 00_predictive_displacement_model/db/02b_neural_networks/
-01_displacement_web/db/02a_classical_models/
-01_displacement_web/db/02b_neural_networks/
 
-# Python
+# IMPORTANT: Keep these models for deployment (they are small)
+# !01_displacement_web/db/02a_classical_models/saved_models/Logistic_Regression_best_model.pkl
+# !01_displacement_web/db/02a_classical_models/saved_models/XGBoost_best_model.pkl
+# !01_displacement_web/db/02a_classical_models/saved_models/categorical_encoders.pkl
+# !01_displacement_web/db/02a_classical_models/saved_models/numeric_scalers.pkl
+# !01_displacement_web/db/02b_neural_networks/saved_models/*.keras
+# !01_displacement_web/db/02b_neural_networks/saved_models/*.pkl
+
+# ===================================================================
+# PYTHON
+# ===================================================================
 __pycache__/
 *.py[cod]
 *$py.class
@@ -18,34 +32,53 @@ displacement/
 dist/
 build/
 
-# Jupyter Notebooks
+# ===================================================================
+# JUPYTER NOTEBOOKS
+# ===================================================================
 .ipynb_checkpoints/
 
-# Node.js (Frontend)
+# ===================================================================
+# NODE.JS (FRONTEND)
+# ===================================================================
 01_displacement_web/frontend/node_modules/
 01_displacement_web/frontend/build/
 01_displacement_web/frontend/.env
+01_displacement_web/frontend/.env.local
 package-lock.json
 
-# IDEs
+# ===================================================================
+# IDES
+# ===================================================================
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 
+# ===================================================================
 # OS
+# ===================================================================
 .DS_Store
 Thumbs.db
 
-# Logs
+# ===================================================================
+# LOGS
+# ===================================================================
 *.log
 
-# Datos
+# ===================================================================
+# DATOS
+# ===================================================================
 *.csv
 *.xlsx
 
-# Otros
+# ===================================================================
+# OTROS
+# ===================================================================
 .env
-.env.local
 *.tar.gz
+
+# ===================================================================
+# KEEP .env.production FOR DEPLOYMENT
+# ===================================================================
+!01_displacement_web/frontend/.env.production

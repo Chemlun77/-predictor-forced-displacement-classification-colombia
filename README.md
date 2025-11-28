@@ -1,6 +1,47 @@
 # Forced Displacement Classification Predictor - Armed Conflict in Colombia
 
-Machine learning-based web application to predict and classify forced displacement events in Colombia using data from the Unique Registry of Victims (RUV). This project combines traditional ML models and deep neural networks to achieve high accuracy in identifying displacement patterns from the Colombian armed conflict.
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://displacement-predictor-frontend.onrender.com)
+[![Python](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/)
+[![React](https://img.shields.io/badge/react-18.0-61dafb.svg)](https://reactjs.org/)
+[![TensorFlow](https://img.shields.io/badge/tensorflow-2.17-orange.svg)](https://www.tensorflow.org/)
+[![License](https://img.shields.io/badge/license-Educational-green.svg)](LICENSE)
+
+Machine learning-based web application to predict and classify forced displacement events in Colombia using data from the Unique Registry of Victims (RUV). This project combines traditional ML models and deep neural networks with an AI chatbot assistant to achieve high accuracy in identifying displacement patterns from the Colombian armed conflict.
+
+> **[📺 Watch Demo Video](https://youtube.com/...)** | **[🌐 Try Live App](https://displacement-predictor-frontend.onrender.com)**
+
+---
+
+## 📸 Application Features
+
+### Main Interface
+![Main Interface](docs/images/main-interface.png)
+*Interactive prediction interface with real-time map visualization*
+
+### AI Chatbot Assistant
+![AI Assistant](docs/images/chatbot-demo.gif)
+*Gemini-powered AI assistant explaining predictions and answering questions*
+
+### Prediction Results
+![Prediction Results](docs/images/prediction-results.png)
+*Detailed prediction with validation against official RUV data*
+
+### Interactive Map
+![Interactive Map](docs/images/map-demo.gif)
+*Geographic visualization showing selected department*
+
+---
+
+## 🌟 Key Features
+
+- **5 Machine Learning Models:** Logistic Regression, Random Forest, XGBoost, ResNet-Style, Wide & Deep
+- **AI Chatbot Assistant:** Gemini-powered explanations of predictions
+- **Real-time Validation:** Compares predictions with official RUV data via API
+- **Interactive Maps:** Visualize geographic patterns using Leaflet
+- **7+ Million Records:** Trained on comprehensive Colombian conflict victim data
+- **Professional UI:** Modern React interface with responsive design
+
+---
 
 ## 📊 Key Results
 
@@ -11,6 +52,8 @@ Machine learning-based web application to predict and classify forced displaceme
 - **Training Time:** 9.54 minutes
 
 The Random Forest model achieves near-perfect discrimination between displacement and other victimizing events, with exceptional recall ensuring minimal false negatives - crucial when dealing with humanitarian data.
+
+---
 
 ## 📋 Project Structure
 ```
@@ -24,9 +67,20 @@ project_00_RUV_displacement/
 │   └── fig/                             # Visualizations and reports
 └── 01_displacement_web/                 # Web application
     ├── backend/                         # Flask API
+    │   ├── app.py                       # Main API endpoints
+    │   ├── chatbot/                     # Gemini AI integration
+    │   ├── preprocessing/               # Data cleaning
+    │   ├── prediction/                  # Model inference
+    │   └── api/                         # Socrata client
     ├── frontend/                        # React interface
+    │   ├── src/
+    │   │   ├── components/              # UI components
+    │   │   └── services/                # API services
+    │   └── public/
     └── db/                              # Production models
 ```
+
+---
 
 ## 🤖 Models
 
@@ -73,13 +127,45 @@ The project implements a comprehensive model comparison approach:
 
 The models utilize the following features:
 - **Demographic:** Gender, age group (life cycle), ethnicity, disability status
-- **Geographic:** Department (state), distances from Bogotá
+- **Geographic:** Department (state), distances from Bogotá (north-south, east-west, total)
 - **Temporal:** Year of occurrence (validity period)
 - **Historical:** Number of previous victimizing events
 
-## 🚀 Web Application
+---
 
-### Installation
+## 🚀 Quick Start (Using Deployed App)
+
+### Option 1: Use Live Deployment
+
+**No installation required!** Simply visit:
+
+🌐 **[https://displacement-predictor-frontend.onrender.com](https://displacement-predictor-frontend.onrender.com)**
+
+**Note:** Free tier may sleep after 15 minutes of inactivity. First visit may take 30-60 seconds to wake up.
+
+### Using the AI Chatbot
+
+1. Make a prediction
+2. Click the "AI Assistant" button (💬)
+3. Provide your free Google Gemini API key:
+   - Visit [ai.google.dev](https://ai.google.dev/)
+   - Click "Get API key"
+   - Copy and paste into the app
+4. Get AI-powered explanations of predictions!
+
+**Free tier limits:** 15 requests/minute, 1,500 requests/day
+
+---
+
+## 💻 Local Installation
+
+### Option 2: Run Locally
+
+#### Prerequisites
+
+- **Python 3.10** (for backend)
+- **Node.js 18+** (for frontend)
+- **Conda** (recommended for environment management)
 
 #### 1. Clone the repository
 ```bash
@@ -89,7 +175,9 @@ cd -predictor-forced-displacement-classification-colombia
 
 #### 2. Download trained models
 
-**Models are NOT included in the repository due to their size. Download from Google Drive:**
+**⚠️ Models are NOT included in the repository due to their size.**
+
+**Download from Google Drive:**
 
 - **Classical models (3.9 GB):** [Download here](https://drive.google.com/file/d/10HN9Wv-u6i2FT6Kb5QrOgDib_9XKvs1L/view?usp=sharing)
 - **Neural networks (13 MB):** [Download here](https://drive.google.com/file/d/1-Q2-kcODg225sMGdWnTOJ3Y_5fWYgMDI/view?usp=sharing)
@@ -140,24 +228,43 @@ cd ../frontend
 npm install
 ```
 
-## ▶️ Running the Application
+#### 5. Run the application
 
-### Terminal 1 - Backend:
+**Terminal 1 - Backend:**
 ```bash
 cd 01_displacement_web/backend
 conda activate displacement
 python app.py
 ```
 
-Backend running at: http://127.0.0.1:5000
+Backend running at: **http://127.0.0.1:5000**
 
-### Terminal 2 - Frontend:
+**Terminal 2 - Frontend:**
 ```bash
 cd 01_displacement_web/frontend
 npm start
 ```
 
-Application available at: http://localhost:3000
+Application available at: **http://localhost:3000**
+
+---
+
+## 🌐 Deployment Guide
+
+Full deployment instructions available in [DEPLOYMENT.md](DEPLOYMENT.md)
+
+### Deployment Notes
+
+**⚠️ Random Forest Model:**
+The Random Forest model (3.9 GB) is **not included in the deployment** due to Render's free tier memory limitations (512 MB). 
+
+- **In local installation:** All 5 models available
+- **In deployed version:** 4 models available (Logistic Regression, XGBoost, ResNet-Style, Deep)
+- **If Random Forest is selected:** Application will display an appropriate error message
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for details on deploying your own instance.
+
+---
 
 ## 🔬 Training Your Own Models
 
@@ -169,7 +276,7 @@ To retrain the models with updated data:
 conda create -n model_training python=3.13 -y
 conda activate model_training
 
-# Install dependencies (from training notebooks)
+# Install dependencies
 pip install pandas numpy scikit-learn xgboost tensorflow matplotlib seaborn joblib openpyxl
 ```
 
@@ -177,12 +284,12 @@ pip install pandas numpy scikit-learn xgboost tensorflow matplotlib seaborn jobl
 
 1. **Data Analysis** (Optional - for understanding the data)
 ```bash
-   jupyter notebook 00_predictive_displacement_model/001_data_analysis.ipynb
+jupyter notebook 00_predictive_displacement_model/001_data_analysis.ipynb
 ```
 
 2. **Train Classical Models**
 ```bash
-   jupyter notebook 00_predictive_displacement_model/002_train_classical_model.ipynb
+jupyter notebook 00_predictive_displacement_model/002_train_classical_model.ipynb
 ```
    - Downloads data automatically from datos.gov.co API
    - Trains Logistic Regression, Random Forest, and XGBoost
@@ -192,7 +299,7 @@ pip install pandas numpy scikit-learn xgboost tensorflow matplotlib seaborn jobl
 
 3. **Train Neural Networks**
 ```bash
-   jupyter notebook 00_predictive_displacement_model/003_train_neural_networks.ipynb
+jupyter notebook 00_predictive_displacement_model/003_train_neural_networks.ipynb
 ```
    - Trains ResNet-Style and Wide & Deep architectures
    - Uses GPU if available (recommended)
@@ -201,21 +308,24 @@ pip install pandas numpy scikit-learn xgboost tensorflow matplotlib seaborn jobl
 
 4. **Generate Performance Report**
 ```bash
-   jupyter notebook 00_predictive_displacement_model/004_final_report.ipynb
+jupyter notebook 00_predictive_displacement_model/004_final_report.ipynb
 ```
    - Creates comparison tables and visualizations
    - Outputs saved to `fig/final_report/`
+
+---
 
 ## 🔧 Technologies
 
 **Backend:**
 - Python 3.10
-- Flask 3.0
-- TensorFlow 2.20
-- Scikit-learn 1.7.2
+- Flask 3.0.0
+- TensorFlow 2.17.0
+- Scikit-learn 1.5.0
 - XGBoost 2.1.0
-- Pandas 2.2+
+- Pandas 2.2.0
 - Sodapy (Socrata API)
+- Google Generative AI (Gemini)
 
 **Frontend:**
 - React 18
@@ -226,6 +336,33 @@ pip install pandas numpy scikit-learn xgboost tensorflow matplotlib seaborn jobl
 - Python 3.13
 - Jupyter Notebooks
 - GPU support for neural networks
+
+**Deployment:**
+- Render.com (hosting)
+- Gunicorn (WSGI server)
+
+---
+
+## 🤖 AI Chatbot Features
+
+The application includes an integrated AI assistant powered by Google's Gemini API:
+
+### Features:
+- **Automatic Explanations:** Get instant AI-generated explanations of predictions
+- **Interactive Q&A:** Ask questions about the prediction, model, or results
+- **Validation Context:** AI explains how predictions compare to real RUV data
+- **Methodology Insights:** Learn about data processing and model decisions
+- **User-Provided API Key:** Bring your own free Gemini API key (no cost to you)
+
+### How to Use:
+1. Make a prediction
+2. Click the floating "💬 AI Assistant" button
+3. Provide your Gemini API key (one-time setup)
+4. Choose to get an automatic explanation or ask custom questions
+
+**Get your free API key:** [ai.google.dev](https://ai.google.dev/)
+
+---
 
 ## 📝 Data Source
 
@@ -239,20 +376,32 @@ pip install pandas numpy scikit-learn xgboost tensorflow matplotlib seaborn jobl
 
 The dataset includes information about victims of the Colombian armed conflict, categorized by type of victimizing event (forced displacement, homicide, disappearance, etc.), along with demographic and geographic information.
 
+---
+
 ## 📄 Citation
 
 If you use this project in your research, please cite:
+```bibtex
+@software{luna2025displacement,
+  author = {Luna, Fabian},
+  title = {Forced Displacement Classification Predictor - Armed Conflict in Colombia},
+  year = {2025},
+  institution = {Universidad Nacional de Colombia Sede Medellín},
+  url = {https://github.com/Chemlun77/-predictor-forced-displacement-classification-colombia}
+}
 ```
-Luna, F. (2025). Forced Displacement Classification Predictor - Armed Conflict in Colombia. 
-Universidad Nacional de Colombia Sede Medellín.
-https://github.com/Chemlun77/-predictor-forced-displacement-classification-colombia
-```
+
+---
 
 ## 👨‍💻 Author
 
 **Fabian Luna**  
 Chemical Engineering MEng Student  
 Universidad Nacional de Colombia Sede Medellín
+
+📧 Contact: [Open an issue](https://github.com/Chemlun77/-predictor-forced-displacement-classification-colombia/issues)
+
+---
 
 ## 📄 License
 
@@ -263,6 +412,8 @@ This project is open source for educational and research purposes. When using th
 - Comply with datos.gov.co terms of service
 - Respect victim privacy and data protection regulations
 
+---
+
 ## 🤝 Contributing
 
 Contributions are welcome! Areas of interest:
@@ -272,6 +423,16 @@ Contributions are welcome! Areas of interest:
 - Web application UI/UX improvements
 - Documentation and translations
 - Performance optimizations
+- AI chatbot enhancements
+
+**How to contribute:**
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+---
 
 ## ⚠️ Ethical Considerations
 
@@ -282,11 +443,38 @@ This project deals with sensitive humanitarian data about victims of armed confl
 - Do not use for purposes that could harm victims or vulnerable populations
 - Respect privacy and data protection principles
 - Consider false negatives as more critical than false positives in this domain
+- Consult with domain experts and stakeholders before production use
 
-## 📧 Contact
+---
 
-For questions, suggestions, or collaboration opportunities, please open an issue on GitHub or contact through the repository.
+## 🐛 Known Issues & Limitations
+
+- **Random Forest in Deployment:** Not available in free tier deployment due to size (3.9 GB)
+- **Cold Starts:** Free tier deployment may take 30-60 seconds to wake from sleep
+- **API Rate Limits:** Socrata API has rate limits; excessive requests may be throttled
+- **Gemini API:** Requires user-provided API key; subject to Google's rate limits
+
+---
+
+## 📚 Additional Resources
+
+- **Deployment Guide:** [DEPLOYMENT.md](DEPLOYMENT.md)
+- **Video Tutorial:** [Watch on YouTube](https://youtube.com/...)
+- **Model Training Notebooks:** `00_predictive_displacement_model/`
+- **API Documentation:** See `backend/app.py` for endpoint details
+
+---
+
+## 🙏 Acknowledgments
+
+- **Colombian Government** for providing open data through datos.gov.co
+- **Universidad Nacional de Colombia** for academic support
+- **Victims of the Colombian Armed Conflict** whose data helps understand and prevent future humanitarian crises
 
 ---
 
 **Note:** This is an academic project for research and educational purposes. Production deployment for humanitarian applications should include additional validation, ethical review, and stakeholder consultation.
+
+---
+
+**⭐ If you find this project useful, please consider giving it a star on GitHub!**
