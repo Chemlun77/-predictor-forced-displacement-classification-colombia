@@ -16,10 +16,8 @@ services:
     healthCheckPath: /api/models
 
   # Frontend Static Site
-  - type: web
+  - type: static
     name: displacement-predictor-frontend
-    env: static
-    region: oregon
     plan: free
     branch: main
     buildCommand: "cd 01_displacement_web/frontend && npm install && npm run build"
