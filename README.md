@@ -403,8 +403,7 @@ If you use this project in your research, please cite:
 ## 👨‍💻 Author
 
 **Fabian Luna**  
-MSc in Chemical Engineering 
-Chemical Engineering  
+MSc in Chemical Engineering & Chemical Engineer  
 Universidad Nacional de Colombia Sede Medellín
 
 <a href="https://orcid.org/0009-0008-7157-6652">
@@ -412,7 +411,7 @@ Universidad Nacional de Colombia Sede Medellín
 </a>
 <br>
 <a href="https://www.researchgate.net/profile/Fabian-Luna-4/network?ev=prf_int_tab">
-    <img src="docs/images/RG_Log.png" height="18px" alt="ReseachGate"> CvLAC
+    <img src="docs/images/RG_Log.png" height="18px" alt="ReseachGate"> ReseachGate
 </a>
 <br>
 <a href="https://www.linkedin.com/in/fabianluna-">
