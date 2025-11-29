@@ -10,7 +10,7 @@
 
 Machine learning-based web application to predict and classify forced displacement events in Colombia using data from the Unique Registry of Victims (RUV). This project combines traditional ML models and deep neural networks with an AI chatbot assistant to achieve high accuracy in identifying displacement patterns from the Colombian armed conflict.
 
-> **[📺 Watch Demo Video](https://youtube.com/...)** | **[🌐 Try Live App](https://predictor-forced-displacement.onrender.com)**
+> **[🌐 Try Live App](https://predictor-forced-displacement.onrender.com)**
 
 ---
 
