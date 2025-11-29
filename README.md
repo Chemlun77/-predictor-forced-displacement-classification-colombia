@@ -407,7 +407,19 @@ MSc in Chemical Engineering
 Chemical Engineering  
 Universidad Nacional de Colombia Sede Medellín
 
-📧 Contact: [Open an issue](https://github.com/Chemlun77/-predictor-forced-displacement-classification-colombia/issues)
+<a href="https://orcid.org/0009-0008-7157-6652">
+    <img src="docs/images/orcid_img.png" height="18px" alt="ORCID"> ORCID
+</a>
+**·**
+
+<a href="https://www.researchgate.net/profile/Fabian-Luna-4/network?ev=prf_int_tab">
+    <img src="docs/images/RG_Log.png" height="18px" alt="ReseachGate"> CvLAC
+</a>
+**·**
+
+<a href="https://www.linkedin.com/in/fabianluna-">
+    <img src="docs/images/linkedin_img.png" height="18px" alt="LinkedIn"> LinkedIn
+</a>
 
 ---
 
