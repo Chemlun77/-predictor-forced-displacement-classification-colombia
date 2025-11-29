@@ -34,29 +34,29 @@ const ApiKeyModal = ({ isOpen, onClose, onSubmit, isLoading }) => {
     <div className="api-key-modal-overlay">
       <div className="api-key-modal">
         <div className="modal-header">
-          <h2>🤖 AI Chat Assistant</h2>
+          <h2>🤖 Asistente de chat con IA</h2>
           <button className="close-btn" onClick={handleClose}>×</button>
         </div>
 
         <div className="modal-body">
           <p className="modal-description">
-            To use the AI chat assistant, you need a free Google Gemini API key.
+            Para utilizar el asistente de chat con IA, necesitas una API key gratuita de Google Gemini.
           </p>
 
           <div className="info-box">
-            <p><strong>How to get your free API key:</strong></p>
+            <p><strong>¿Cómo obtener tu clave API gratuita?:</strong></p>
             <ol>
-              <li>Go to <a href="https://ai.google.dev/" target="_blank" rel="noopener noreferrer">ai.google.dev</a></li>
-              <li>Click "Get API key in Google AI Studio"</li>
+              <li>Ir a <a href="https://ai.google.dev/" target="_blank" rel="noopener noreferrer">ai.google.dev</a></li>
+              <li>Haga clic en «Obtener API key en Google AI Studio».</li>
               <li>Sign in with your Google account</li>
-              <li>Click "Get API key" → "Create API key"</li>
-              <li>Copy your key and paste it below</li>
+              <li>Inicie sesión con su cuenta de Google.</li>
+              <li>Copia tu clave y pégala a continuación.</li>
             </ol>
           </div>
 
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="apiKey">Enter your API key:</label>
+              <label htmlFor="apiKey">Introduzca su API key:</label>
               <input
                 type="password"
                 id="apiKey"
@@ -71,8 +71,8 @@ const ApiKeyModal = ({ isOpen, onClose, onSubmit, isLoading }) => {
 
             <div className="security-note">
               <small>
-                🔒 Your API key is stored only in your browser (localStorage) and never shared with our servers.
-                Each request is made directly to Google's Gemini API using your key.
+                🔒 Tu API key se almacena únicamente en tu navegador (localStorage) y nunca se comparte con nuestros servidores.
+                Cada solicitud se realiza directamente a la API Gemini de Google utilizando su clave.
               </small>
             </div>
 
@@ -83,14 +83,14 @@ const ApiKeyModal = ({ isOpen, onClose, onSubmit, isLoading }) => {
                 className="btn-cancel"
                 disabled={isLoading}
               >
-                Cancel
+                Cancelar
               </button>
               <button 
                 type="submit" 
                 className="btn-submit"
                 disabled={isLoading}
               >
-                {isLoading ? 'Validating...' : 'Save & Start Chat'}
+                {isLoading ? 'Validando...' : 'Guardar e iniciar chat'}
               </button>
             </div>
           </form>

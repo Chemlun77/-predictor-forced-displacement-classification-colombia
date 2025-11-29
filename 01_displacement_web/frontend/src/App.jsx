@@ -141,7 +141,17 @@ useEffect(() => {
   return (
     <div className="app">
       <header className={`app-header ${showChatbot ? 'with-chatbot' : ''}`}>
-        <h1>Predictor de Clasificación de Desplazamiento Forzado - Conflicto Armado en Colombia</h1>
+        <img 
+          src="/logo_app.png" 
+          alt="V-DataLab Logo" 
+          style={{
+            width: '160px',
+            height: '80px',
+            borderRadius: '10px',
+            marginRight: '20px'
+          }}
+        />
+        <h1>V-DataLab: Laboratorio de Aprendizaje con IA sobre Desplazamiento Forzado en Colombia</h1>
       </header>
       <div className={`app-content ${showChatbot ? 'with-chatbot' : ''}`}>
         <ControlPanel
@@ -165,7 +175,7 @@ useEffect(() => {
           title="Open AI Assistant"
         >
           <span className="chat-icon">💬</span>
-          <span className="chat-label">AI Assistant</span>
+          <span className="chat-label">Asistente de IA</span>
         </button>
       )}
 

@@ -173,7 +173,7 @@ function Chatbot({ predictionContext, isVisible, onToggle }) {
       <div className="chatbot-header">
         <div className="header-left">
           <span className="chatbot-icon">🤖</span>
-          <h3>AI Assistant</h3>
+          <h3>Asistente de IA</h3>
         </div>
         <div className="header-actions">
           {messages.length > 0 && (
@@ -199,19 +199,19 @@ function Chatbot({ predictionContext, isVisible, onToggle }) {
         {!apiKey ? (
           <div className="no-api-key">
             <div className="setup-message">
-              <h4>🔑 Setup Required</h4>
-              <p>To use the AI Assistant, you need to provide your Google Gemini API key.</p>
+              <h4>🔑 Configuración necesaria</h4>
+              <p>Para utilizar el asistente de IA, debes proporcionar tu API key de Google Gemini.</p>
               <button className="btn-primary" onClick={() => setShowModal(true)}>
-                Setup API Key
+                Configuración de API Key
               </button>
               <div className="api-key-info">
                 <small>
-                  <strong>How to get your free API key:</strong><br/>
+                  <strong>Cómo obtener tu clave API gratuita:</strong><br/>
                   1. Visit <a href="https://ai.google.dev/" target="_blank" rel="noopener noreferrer">ai.google.dev</a><br/>
-                  2. Click "Get API key"<br/>
-                  3. Create a new API key<br/>
-                  4. Copy and paste it here<br/><br/>
-                  <strong>Free tier:</strong> 15 requests/minute, 1,500 requests/day
+                  2. Clic "Get API key"<br/>
+                  3. Crear una nueva API key<br/>
+                  4. Cópialo y pégalo aquí<br/><br/>
+                  <strong>Nivel gratuito:</strong> 15 solicitudes/min, 1500 solicitudes/día
                 </small>
               </div>
             </div>
