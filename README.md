@@ -35,7 +35,7 @@ Machine learning-based web application to predict and classify forced displaceme
 ### AI Chatbot Assistant
 ![Main Interface](docs/images/04_bot.png)
 
-*If you want the Gemini-powered AI assistant to explain predictions and answer questions, you need to create an API key by following the instructions on the website https://aistudio.google.com.*
+*If you want the Gemini-powered AI assistant to explain predictions and answer questions, you need to create an API key by following the instructions on the website https://ai.google.dev/*
 
 ---
 
