@@ -1,5 +1,7 @@
 # Forced Displacement Classification Predictor - Armed Conflict in Colombia
 
+## V-DataLab: Laboratorio de Aprendizaje con IA sobre Desplazamiento Forzado en Colombia
+
 [![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://displacement-predictor-frontend.onrender.com)
 [![Python](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/)
 [![React](https://img.shields.io/badge/react-18.0-61dafb.svg)](https://reactjs.org/)
@@ -8,7 +10,7 @@
 
 Machine learning-based web application to predict and classify forced displacement events in Colombia using data from the Unique Registry of Victims (RUV). This project combines traditional ML models and deep neural networks with an AI chatbot assistant to achieve high accuracy in identifying displacement patterns from the Colombian armed conflict.
 
-> **[📺 Watch Demo Video](https://youtube.com/...)** | **[🌐 Try Live App](https://displacement-predictor-frontend.onrender.com)**
+> **[📺 Watch Demo Video](https://youtube.com/...)** | **[🌐 Try Live App](https://predictor-forced-displacement.onrender.com)**
 
 ---
 
@@ -25,24 +27,15 @@ Machine learning-based web application to predict and classify forced displaceme
 ![Main Interface](docs/images/02_no_random_forest.png)
 *Random Forest is not included in this deployment despite being the best model, as its size (3.9 GB) exceeds the limits of the free tier.*
 
-### Predictions
+### Predictions 
 
-![Main Interface](docs/images/03_predict_01.png)
-![Main Interface](docs/images/03_predict_02.png)
 ![Main Interface](docs/images/03_predict_03.png)
-*Model selection, variable filling, prediction, and comparison with the data entered by making a query with the datos abiertos API.*
+*Model selection, variable filling, prediction, and comparison with the data entered by making a query with the datos abiertos API. When you make a prediction, the AI assistant pops up so you can connect to the Gemini API if you want to interact with the model outputs and ask questions about them.*
 
 ### AI Chatbot Assistant
-![AI Assistant](docs/images/chatbot-demo.png)
-*Gemini-powered AI assistant explaining predictions and answering questions*
+![Main Interface](docs/images/04_bot.png)
 
-### Prediction Results
-![Prediction Results](docs/images/prediction-results.png)
-*Detailed prediction with validation against official RUV data*
-
-### Interactive Map
-![Interactive Map](docs/images/map-demo.gif)
-*Geographic visualization showing selected department*
+*If you want the Gemini-powered AI assistant to explain predictions and answer questions, you need to create an API key by following the instructions on the website https://aistudio.google.com.*
 
 ---
 
