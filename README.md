@@ -15,11 +15,25 @@ Machine learning-based web application to predict and classify forced displaceme
 ## 📸 Application Features
 
 ### Main Interface
-![Main Interface](docs/images/main-interface.png)
+![Main Interface](docs/images/01_main_interface.png)
 *Interactive prediction interface with real-time map visualization*
 
+### Models
+![Main Interface](docs/images/02_models.png)
+*Models available for predictions*
+
+![Main Interface](docs/images/02_no_random_forest.png)
+*Random Forest is not included in this deployment despite being the best model, as its size (3.9 GB) exceeds the limits of the free tier.*
+
+### Predictions
+
+![Main Interface](docs/images/03_predict_01.png)
+![Main Interface](docs/images/03_predict_02.png)
+![Main Interface](docs/images/03_predict_03.png)
+*Model selection, variable filling, prediction, and comparison with the data entered by making a query with the datos abiertos API.*
+
 ### AI Chatbot Assistant
-![AI Assistant](docs/images/chatbot-demo.gif)
+![AI Assistant](docs/images/chatbot-demo.png)
 *Gemini-powered AI assistant explaining predictions and answering questions*
 
 ### Prediction Results
