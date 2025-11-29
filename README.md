@@ -146,7 +146,7 @@ The models utilize the following features:
 
 **No installation required!** Simply visit:
 
-🌐 **[https://displacement-predictor-frontend.onrender.com](https://displacement-predictor-frontend.onrender.com)**
+🌐 **[https://predictor-forced-displacement.onrender.com/](https://predictor-forced-displacement.onrender.com/)**
 
 **Note:** Free tier may sleep after 15 minutes of inactivity. First visit may take 30-60 seconds to wake up.
 
@@ -403,7 +403,8 @@ If you use this project in your research, please cite:
 ## 👨‍💻 Author
 
 **Fabian Luna**  
-Chemical Engineering MEng Student  
+MSc in Chemical Engineering 
+Chemical Engineering  
 Universidad Nacional de Colombia Sede Medellín
 
 📧 Contact: [Open an issue](https://github.com/Chemlun77/-predictor-forced-displacement-classification-colombia/issues)
