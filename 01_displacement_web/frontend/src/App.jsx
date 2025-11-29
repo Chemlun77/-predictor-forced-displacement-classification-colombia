@@ -151,7 +151,7 @@ useEffect(() => {
             marginRight: '20px'
           }}
         />
-        <h1>V-DataLab: Laboratorio de Aprendizaje con IA sobre Desplazamiento Forzado en Colombia</h1>
+        <h1>Laboratorio de Aprendizaje con IA sobre Desplazamiento Forzado en Colombia</h1>
       </header>
       <div className={`app-content ${showChatbot ? 'with-chatbot' : ''}`}>
         <ControlPanel

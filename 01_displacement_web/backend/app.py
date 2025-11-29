@@ -145,8 +145,8 @@ def predict():
             test_predict = predictor.predict(model_name, None, check_only=True)
         except:
             return jsonify({
-                'error': 'Random Forest model is not available in this deployment',
-                'message': 'The Random Forest model (3.9 GB) is excluded from deployment due to memory limitations on the free tier. Please use one of the other available models: Logistic Regression, XGBoost, ResNet-Style, or Deep.',
+                'error': 'El modelo Random Forest no está disponible en este deployment.',
+                'message': 'El modelo Random Forest (3,9 GB) se excluye del deployment debido a las limitaciones de memoria del nivel gratuito. Utilice uno de los otros modelos disponibles: regresión logística, XGBoost, ResNet-Style o Deep.',
                 'available_models': ['Logistic_Regression', 'XGBoost', 'ResNet_Style', 'Deep']
             }), 503
     
@@ -173,8 +173,8 @@ def predict():
         # Handle case where model file is missing (Random Forest in deployment)
         if 'Random_Forest' in str(e):
             return jsonify({
-                'error': 'Random Forest model is not available',
-                'message': 'The Random Forest model (3.9 GB) is excluded from deployment due to memory limitations. Please use Logistic Regression, XGBoost, ResNet-Style, or Deep.',
+                'error': 'El modelo Random Forest no está disponible.',
+                'message': 'El modelo Random Forest (3,9 GB) se excluye del deployment debido a limitaciones de memoria. Utilice Logistic Regression, XGBoost, ResNet-Style o Deep.',
                 'available_models': ['Logistic_Regression', 'XGBoost', 'ResNet_Style', 'Deep']
             }), 503
         return jsonify({'error': f'Model error: {str(e)}'}), 500
