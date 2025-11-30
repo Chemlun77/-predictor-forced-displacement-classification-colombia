@@ -1,6 +1,6 @@
 # Forced Displacement Classification Predictor - Armed Conflict in Colombia
 
-## V-DataLab: Laboratorio de Aprendizaje con IA sobre Desplazamiento Forzado en Colombia
+## V-DataLab: AI Learning Lab on Forced Displacement in Colombia \(Laboratorio de Aprendizaje con IA sobre Desplazamiento Forzado en Colombia\)
 
 [![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://displacement-predictor-frontend.onrender.com)
 [![Python](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/)
@@ -397,9 +397,12 @@ If you use this project in your research, please cite:
 ```bibtex
 @software{luna2025displacement,
   author = {Luna, Fabian},
-  title = {Forced Displacement Classification Predictor - Armed Conflict in Colombia},
+  title = {V-DataLab: AI Learning Lab on Forced Displacement in Colombia},
+  organization = {Universidad Nacional de Colombia},
+  address = {Medellín, Colombia},
   year = {2025},
-  institution = {Universidad Nacional de Colombia Sede Medellín},
+  version = {1.0}, 
+  howpublished = {Interactive Web Application}, 
   url = {https://github.com/Chemlun77/-predictor-forced-displacement-classification-colombia}
 }
 ```
@@ -491,7 +494,6 @@ This project deals with sensitive humanitarian data about victims of armed confl
 ## 🙏 Acknowledgments
 
 - **Colombian Government** for providing open data through datos.gov.co
-- **Universidad Nacional de Colombia** for academic support
 - **Victims of the Colombian Armed Conflict** whose data helps understand and prevent future humanitarian crises
 
 ---
