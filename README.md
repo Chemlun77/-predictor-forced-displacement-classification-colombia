@@ -14,7 +14,7 @@ Machine learning-based web application to predict and classify forced displaceme
 
 > **[🌐 Try Live App](https://predictor-forced-displacement.onrender.com)**
 
- **[🎥 Try YouTube video](https://youtu.be/eox85t9bz_0)**
+> **[🎥 Try YouTube video](https://youtu.be/eox85t9bz_0)**
 
 ---
 
